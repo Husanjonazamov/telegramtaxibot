@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  telegram-bot:
+    build: .
+    restart: always
+    env_file: 
+      - .env
+    volumes:
+      - .:/usr/src/app
+    command: python3 bot.py
