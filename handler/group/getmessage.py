@@ -12,7 +12,8 @@ import re
 SOURCE_GROUP_ID = -1002288974096
 TARGET_GROUP_ID = -1002264446732
 
-pattern = re.compile(r"(Beshariqga ketishim kerak|Toshkentga ketishim kerak|Toshkentdan Beshariqqa ketish|Beshariqdan Toshkentga ketish)", re.IGNORECASE)
+pattern = re.compile(r"(beshariqga ketishim kerak|toshkentga ketishim kerak|toshkentdan beshariqqa ketish|beshariqdan toshkentga ketish)", re.IGNORECASE)
+
 
 
 @dp.message_handler(lambda message: message.chat.type in ['group', 'supergroup'], content_types=['text'])  # Faqat guruhlarda va faqat matn uchun
@@ -21,7 +22,7 @@ async def forward_message(message: Message):
         admins = await bot.get_chat_administrators(message.chat.id)
         admin_ids = [admin.user.id for admin in admins]
 
-        if message.from_user.id not in admin_ids and pattern.search(message.text): 
+        if message.from_user.id not in admin_ids and pattern.search(message.text.lower()): 
             text = message.text 
             username = message.from_user.username
             await bot.send_message(
@@ -36,3 +37,4 @@ async def forward_message(message: Message):
             print("----")
     else:
         print("----")
+
